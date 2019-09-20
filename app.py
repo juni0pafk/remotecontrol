@@ -1,19 +1,27 @@
 import json
+import eventlet 
 
 from flask import Flask, render_template, redirect, request
 from flask_socketio import SocketIO, send, emit
 from flask_cors import CORS
 
+eventlet.monkey_patch() 
+
 app = Flask(__name__)
 socketio = SocketIO(app)
+socketio = SocketIO(app,async_mode = 'eventlet')
+
 CORS(app)
 
 estado = {
-    "MOTOR1": 0,
-    "MOTOR2": 0,
+    "MOTORL": 0,
+    "MOTORR": 0,
     "CAMERA" : 0"
 }
-    
+
+@app.route("/")
+def rota_inicial():
+    return render_template("index.html")
     
 @socketio.on('frente')
 def pfrente():
@@ -21,13 +29,6 @@ def pfrente():
  estado["MOTORL"] = 1
  estado["MOTORR"] = 1
  estado["CAMERA"] = 1 
-
-@socketio.on('atras')
-def ptras():
- global estado
-  estado["MOTORL"] = 2
-  estado["MOTORR"] = 2
-  estado["CAMERA"] = 1 
 
 @socketio.on('esquerda')
 def pesquerda():
@@ -43,12 +44,7 @@ def pdireita():
   estado["MOTORR"] = 0
   estado["CAMERA"] = 1 
 
-@app.route("/")
-def rota_inicial():
-    return render_template("index.html")
-
 @app.route("/download", methods=["GET"])
 def rota_download():
  global estado
  return json.dumps(estado)
- 
