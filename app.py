@@ -5,28 +5,29 @@ import time
 
 app = Flask(__name__)
 
-m11=18
-m12=23
-m21=24
-m22=25
+#Pinos do GPIO Rasp
+m11=12   
+m12=16
+m21=18
+m22=22
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+##Declarações
+GPIO.setmode(GPIO.BOARD)
+
 GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
 GPIO.setup(m22, GPIO.OUT)
-GPIO.output(m11 , 0)
-GPIO.output(m12 , 0)
-GPIO.output(m21, 0)
-GPIO.output(m22, 0)
-print "DOne"
 
-a=1
+print ("Done")
+
+
+#Rota e função que renderiza o .html
 @app.route("/")
 def index():
     return render_template('robot.html')
 
+#Rota e função da esquerda
 @app.route('/left_side')
 def left_side():
     data1="LEFT"
@@ -36,6 +37,7 @@ def left_side():
     GPIO.output(m22 , 0)
     return 'true'
 
+#Rota e função da direita
 @app.route('/right_side')
 def right_side():
    data1="RIGHT"
@@ -45,6 +47,7 @@ def right_side():
    GPIO.output(m22 , 0)
    return 'true'
 
+#Rota e função da frente
 @app.route('/up_side')
 def up_side():
    data1="FORWARD"
@@ -54,6 +57,7 @@ def up_side():
    GPIO.output(m22 , 0)
    return 'true'
 
+#Rota e função de trás
 @app.route('/down_side')
 def down_side():
    data1="BACK"
@@ -63,6 +67,7 @@ def down_side():
    GPIO.output(m22 , 1)
    return 'true'
 
+#Rota e função de parada
 @app.route('/stop')
 def stop():
    data1="STOP"
@@ -72,8 +77,7 @@ def stop():
    GPIO.output(m22 , 0)
    return  'true'
 
+#Hospedagem no ip da rasp
 if __name__ == "__main__":
- print "Start"
+ print ("Start")
  app.run(host='192.168.0.16',port=5010)
-    
-
