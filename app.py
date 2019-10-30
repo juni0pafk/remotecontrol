@@ -1,3 +1,6 @@
+#Raspberry Web Controlled Robot (Circuit Digest)
+#Adaptado: Andressa Theotônio
+
 from flask import Flask
 from flask import render_template, request
 import RPi.GPIO as GPIO
