@@ -42,9 +42,9 @@ def index():
 @app.route('/left_side')
 def left_side():
     data1="LEFT"
-    GPIO.output(m11 , 0)
+    GPIO.output(m11 , 1)
     GPIO.output(m12 , 0)
-    GPIO.output(m21 , 1)
+    GPIO.output(m21 , 0)
     GPIO.output(m22 , 0)
     return 'true'
 
@@ -52,9 +52,9 @@ def left_side():
 @app.route('/right_side')
 def right_side():
    data1="RIGHT"
-   GPIO.output(m11 , 1)
+   GPIO.output(m11 , 0)
    GPIO.output(m12 , 0)
-   GPIO.output(m21 , 0)
+   GPIO.output(m21 , 1)
    GPIO.output(m22 , 0)
    return 'true'
 
