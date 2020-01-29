@@ -9,13 +9,21 @@ import time
 app = Flask(__name__)
 
 #Pinos do GPIO Rasp
-m11=12   
-m12=16
-m21=18
-m22=22
+# m11=12   
+# m12=16
+# m21=18
+# m22=22
+
+#Pinos do GPIO Raspberry 3 model B 
+m11=26   
+m12=19
+m21=20
+m22=21
+
 
 ##Declarações
-GPIO.setmode(GPIO.BOARD)
+# GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM) #RASPBERRY 3 MODEL B
 
 GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
