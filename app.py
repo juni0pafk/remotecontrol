@@ -17,8 +17,8 @@ app = Flask(__name__)
 #Pinos do GPIO Raspberry 3 model B 
 m11=26   
 m12=19
-m21=20
-m22=21
+m21=21
+m22=20
 
 
 ##Declarações
