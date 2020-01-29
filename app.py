@@ -20,6 +20,8 @@ m12=19
 m21=21
 m22=20
 
+sleep = 300
+
 
 ##Declarações
 # GPIO.setmode(GPIO.BOARD)
@@ -32,6 +34,36 @@ GPIO.setup(m22, GPIO.OUT)
 
 print ("Done")
 
+def left():
+   GPIO.output(m11 , 1)
+   GPIO.output(m12 , 0)
+   GPIO.output(m21 , 0)
+   GPIO.output(m22 , 0)
+
+def right():
+   GPIO.output(m11 , 0)
+   GPIO.output(m12 , 0)
+   GPIO.output(m21 , 1)
+   GPIO.output(m22 , 0)
+
+def forward():
+   GPIO.output(m11 , 1)
+   GPIO.output(m12 , 0)
+   GPIO.output(m21 , 1)
+   GPIO.output(m22 , 0)
+
+def backward():
+   GPIO.output(m11 , 0)
+   GPIO.output(m12 , 1)
+   GPIO.output(m21 , 0)
+   GPIO.output(m22 , 1)
+
+def stop():
+   GPIO.output(m11 , 0)
+   GPIO.output(m12 , 0)
+   GPIO.output(m21 , 0)
+   GPIO.output(m22 , 0)
+
 
 #Rota e função que renderiza o .html
 @app.route("/")
@@ -42,51 +74,44 @@ def index():
 #Rota e função da esquerda
 @app.route('/left_side')
 def left_side():
-    data1="LEFT"
-    GPIO.output(m11 , 1)
-    GPIO.output(m12 , 0)
-    GPIO.output(m21 , 0)
-    GPIO.output(m22 , 0)
-    return 'true'
+   data1="LEFT"
+   left()
+   time.sleep(sleep)
+   stop()
+   return 'true'
 
 #Rota e função da direita
 @app.route('/right_side')
 def right_side():
    data1="RIGHT"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 1)
-   GPIO.output(m22 , 0)
+   right()
+   time.sleep(sleep)
+   stop()
    return 'true'
 
 #Rota e função da frente
 @app.route('/up_side')
 def up_side():
    data1="FORWARD"
-   GPIO.output(m11 , 1)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 1)
-   GPIO.output(m22 , 0)
+   forward()
+   time.sleep(sleep)
+   stop()
    return 'true'
 
 #Rota e função de trás
 @app.route('/down_side')
 def down_side():
    data1="BACK"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 1)
-   GPIO.output(m21 , 0)
-   GPIO.output(m22 , 1)
+   backward()
+   time.sleep(sleep)
+   stop()
    return 'true'
 
 #Rota e função de parada
 @app.route('/stop')
 def stop():
    data1="STOP"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 0)
-   GPIO.output(m22 , 0)
+   stop()
    return  'true'
 
 #Hospedagem no ip da rasp
