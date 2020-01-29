@@ -36,7 +36,8 @@ print ("Done")
 #Rota e função que renderiza o .html
 @app.route("/")
 def index():
-    return render_template('robot.html')
+   #  return render_template('robot.html')
+   return render_template('robot_phone.html')
 
 #Rota e função da esquerda
 @app.route('/left_side')
