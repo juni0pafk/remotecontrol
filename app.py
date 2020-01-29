@@ -109,7 +109,7 @@ def down_side():
 
 #Rota e função de parada
 @app.route('/stop')
-def stop():
+def stop_route():
    data1="STOP"
    stop()
    return  'true'
