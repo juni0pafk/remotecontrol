@@ -83,4 +83,4 @@ def stop():
 #Hospedagem no ip da rasp
 if __name__ == "__main__":
  print ("Start")
- app.run(host='192.168.0.16',port=5010)
+ app.run(host='0.0.0.0',port=5010)
