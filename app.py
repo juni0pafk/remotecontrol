@@ -10,8 +10,10 @@ import time
 import sys
 import signal
 
-
-
+def handler(signal, frame):
+  print('CTRL-C pressed!')
+  cam.release()
+  sys.exit(0)
 signal.signal(signal.SIGINT, handler)
 signal.pause()
 
@@ -47,8 +49,6 @@ GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
 GPIO.setup(m22, GPIO.OUT)
 
-print ("Done")
-
 def left():
    GPIO.output(m11 , 1)
    GPIO.output(m12 , 0)
@@ -79,10 +79,7 @@ def stop():
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 0)
 
-def handler(signal, frame):
-  print('CTRL-C pressed!')
-  cam.release()
-  sys.exit(0)
+
 
 
 #Rota e função que renderiza o .html
