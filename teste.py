@@ -1,27 +1,29 @@
-import RPi.GPIO as GPIO
+import cv2
 
-m11 = 26
-m12 = 19
-m21 = 20
-m22 = 21
+cam = cv2.VideoCapture(0)
 
-GPIO.setmode(GPIO.BCM)
+cv2.namedWindow("test")
 
-GPIO.setup(m11, GPIO.OUT)
-GPIO.setup(m12, GPIO.OUT)
-GPIO.setup(m21, GPIO.OUT)
-GPIO.setup(m22, GPIO.OUT)
+img_counter = 0
 
-while(True):
-    op = input("Direção: ")
-    if op == 'w':
-        GPIO.output(m11,1)
-        GPIO.output(m12,0)
-        GPIO.output(m21,0)
-        GPIO.output(m22,1)
-    elif op == 's':
-        GPIO.output(m11,0)
-        GPIO.output(m12,0)
-        GPIO.output(m21,0)
-        GPIO.output(m22,0)
+while True:
+    ret, frame = cam.read()
+    cv2.imshow("test", frame)
+    if not ret:
+        break
+    k = cv2.waitKey(1)
 
+    if k%256 == 27:
+        # ESC pressed
+        print("Escape hit, closing...")
+        break
+    elif k%256 == 32:
+        # SPACE pressed
+        img_name = "opencv_frame_{}.png".format(img_counter)
+        cv2.imwrite(img_name, frame)
+        print("{} written!".format(img_name))
+        img_counter += 1
+
+cam.release()
+
+cv2.destroyAllWindows()
