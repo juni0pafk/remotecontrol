@@ -15,7 +15,7 @@ def handler(signal, frame):
   cam.release()
   sys.exit(0)
 signal.signal(signal.SIGINT, handler)
-signal.pause()
+#signal.pause()
 
 app = Flask(__name__)
 
@@ -135,8 +135,10 @@ def stop_route():
 def image_route():
    ret,frame = cam.read()
    if ret:
+      global img_counter
       filename = 'camera/imagem_{}.png'.format(img_counter)
       cv2.imwrite(filename,frame)
+      img_counter += 1
       return send_file(filename,mimetype='image/png')
    return "nada"
 
