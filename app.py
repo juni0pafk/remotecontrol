@@ -3,6 +3,7 @@
 
 from flask import Flask
 from flask import render_template, request, send_file
+from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
 import time
@@ -135,10 +136,8 @@ def stop_route():
 def image_route():
    ret,frame = cam.read()
    if ret:
-      global img_counter
-      filename = 'camera/imagem_{}.png'.format(img_counter)
+      filename = 'camera/imagem_{}.png'.format(datetime.now())
       cv2.imwrite(filename,frame)
-      img_counter += 1
       return send_file(filename,mimetype='image/png')
    return "nada"
 
