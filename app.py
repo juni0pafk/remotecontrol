@@ -2,15 +2,17 @@
 #Adaptado: Andressa Theotônio
 
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, send_file
 import RPi.GPIO as GPIO
 import cv2
 import time
 
 app = Flask(__name__)
+
 cam = cv2.VideoCapture(0)
 cam.set(3,320) #Largura da imagem capturada
 cam.set(4,240) #Altura da imagem capturada
+img_counter = 0
 
 
 #Pinos do GPIO Rasp
@@ -123,7 +125,9 @@ def stop_route():
 def image_route():
    ret,frame = cam.read()
    if ret:
-      return frame
+      filename = 'camera/imagem_{}.png'.format(img_counter)
+      cv2.imwrite(filename,frame)
+      return send_file(filename,mimetype='image/png')
    return "nada"
 
 #Hospedagem no ip da rasp
