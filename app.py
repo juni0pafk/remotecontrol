@@ -7,6 +7,14 @@ import RPi.GPIO as GPIO
 import cv2
 import time
 
+import sys
+import signal
+
+
+
+signal.signal(signal.SIGINT, handler)
+signal.pause()
+
 app = Flask(__name__)
 
 cam = cv2.VideoCapture(0)
@@ -71,6 +79,11 @@ def stop():
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 0)
 
+def handler(signal, frame):
+  print('CTRL-C pressed!')
+  cam.release()
+  sys.exit(0)
+
 
 #Rota e função que renderiza o .html
 @app.route("/")
@@ -130,9 +143,6 @@ def image_route():
       return send_file(filename,mimetype='image/png')
    return "nada"
 
-@app.teardown_appcontext
-def release_cam():
-   cam.release()
 
 #Hospedagem no ip da rasp
 if __name__ == "__main__":
