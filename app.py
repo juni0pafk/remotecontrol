@@ -20,7 +20,7 @@ m12=19
 m21=21
 m22=20
 
-sleep = .5
+sleep = .2
 
 
 ##Declarações
