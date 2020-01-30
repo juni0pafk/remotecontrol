@@ -130,6 +130,10 @@ def image_route():
       return send_file(filename,mimetype='image/png')
    return "nada"
 
+@app.teardown_appcontext
+def release_cam():
+   cam.release()
+
 #Hospedagem no ip da rasp
 if __name__ == "__main__":
  print ("Start")
