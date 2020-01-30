@@ -4,9 +4,14 @@
 from flask import Flask
 from flask import render_template, request
 import RPi.GPIO as GPIO
+import cv2
 import time
 
 app = Flask(__name__)
+cam = cv2.VideoCapture(0)
+cam.set(3,320) #Largura da imagem capturada
+cam.set(4,240) #Altura da imagem capturada
+
 
 #Pinos do GPIO Rasp
 # m11=12   
@@ -113,6 +118,13 @@ def stop_route():
    data1="STOP"
    stop()
    return  'true'
+
+@app.route('/get_image')
+def image_route():
+   ret,frame = cam.read()
+   if ret:
+      return frame
+   return "nada"
 
 #Hospedagem no ip da rasp
 if __name__ == "__main__":
