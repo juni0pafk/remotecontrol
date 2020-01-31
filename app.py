@@ -22,6 +22,7 @@ signal.signal(signal.SIGINT, handler)
 
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 CORS(app)
 
 cam = cv2.VideoCapture(0)
