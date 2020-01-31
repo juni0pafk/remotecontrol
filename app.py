@@ -2,7 +2,7 @@
 #Adaptado: Andressa Theotônio
 
 from flask import Flask
-from flask import render_template, request, send_file, send_from_directory,url_for
+from flask import render_template, request, send_file, send_from_directory
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
@@ -86,9 +86,9 @@ def take_picture():
    global last_filename
    ret,frame = cam.read()
    if ret:
-      last_filename = 'imagem_{}'.format(datetime.now())
+      last_filename = 'camera/imagem_{}'.format(datetime.now())
       last_filename = last_filename.replace(" ","_").replace(":","_").replace(".","_").replace("-","_") + '.png'
-      cv2.imwrite('camera/'+last_filename,frame)
+      cv2.imwrite(last_filename,frame)
 
 
 #Rota e função que renderiza o .html
@@ -147,8 +147,7 @@ def stop_route():
 @app.route('/get_last_image')
 def image_route():
    if len(last_filename):
-      # return send_file(last_filename,mimetype='image/png')
-      return url_for('camera',filename=last_filename)
+      return send_file(last_filename,mimetype='image/png')
 
 #NOT WORKING
 # TO DO: CRIAR UM TEMPLATE EM HTML+JS PARA LISTAR OS ARQUIVOS DA PASTA
