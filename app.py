@@ -86,7 +86,7 @@ def take_picture():
    global last_filename
    ret,frame = cam.read()
    if ret:
-      last_filename = 'imagem_{}.png'.format(datetime.now())
+      last_filename = 'imagem_{}.png'.format(datetime.now().replace(" ","_").replace(":","_").replace(".","_").replace("-","_"))
       cv2.imwrite('camera/'+last_filename,frame)
 
 
