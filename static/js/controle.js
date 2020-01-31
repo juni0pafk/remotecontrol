@@ -6,8 +6,8 @@ let stop = document.getElementById('stop')
 let img = document.getElementById('img')
 
 function atualiza_imagem() {
-    img.src = ""
-    img.src = '/get_last_image'
+    window.URL.revokeObjectURL(img.src)
+    // img.src = '/get_last_image'
 }
 
 down.addEventListener('click',() => 
