@@ -2,7 +2,7 @@
 #Adaptado: Andressa Theotônio
 
 from flask import Flask
-from flask import render_template, request, send_file, send_from_directory
+from flask import render_template, request, send_file, send_from_directory,url_for
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
@@ -86,8 +86,8 @@ def take_picture():
    global last_filename
    ret,frame = cam.read()
    if ret:
-      last_filename = 'camera/imagem_{}.png'.format(datetime.now())
-      cv2.imwrite(last_filename,frame)
+      last_filename = 'imagem_{}.png'.format(datetime.now())
+      cv2.imwrite('camera/'+last_filename,frame)
 
 
 #Rota e função que renderiza o .html
