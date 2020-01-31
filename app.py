@@ -3,6 +3,8 @@
 
 from flask import Flask
 from flask import render_template, request, send_file, send_from_directory
+from flask_cors import CORS
+
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
@@ -20,6 +22,7 @@ signal.signal(signal.SIGINT, handler)
 
 
 app = Flask(__name__)
+CORS(app)
 
 cam = cv2.VideoCapture(0)
 cam.set(3,320) #Largura da imagem capturada
