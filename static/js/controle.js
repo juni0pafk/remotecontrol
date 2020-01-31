@@ -8,7 +8,10 @@ let img = document.getElementById('img')
 function atualiza_imagem() {
     fetch('/get_last_image')
     .then(resp => resp.blob())
-    .then(resp => img.src = URL.createObjectURL(resp))
+    .then(resp => {
+        URL.revokeObjectURL(img.src)
+        img.src = URL.createObjectURL(resp))
+    }
 }
 
 down.addEventListener('click',() => 
