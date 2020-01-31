@@ -85,9 +85,9 @@ def stop():
 def take_picture():
    global last_filename
    ret,frame = cam.read()
-      if ret:
-         last_filename = 'camera/imagem_{}.png'.format(datetime.now())
-         cv2.imwrite(last_filename,frame)
+   if ret:
+      last_filename = 'camera/imagem_{}.png'.format(datetime.now())
+      cv2.imwrite(last_filename,frame)
 
 
 #Rota e função que renderiza o .html
