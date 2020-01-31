@@ -5,10 +5,8 @@ let right = document.getElementById('right')
 let stop = document.getElementById('stop')
 let img = document.getElementById('img')
 
-function atualiza_imagem() {
-    
-    fetch('/get_last_image')
-    .then(img => img.src = img)
+function atualiza_imagem() { 
+    img.src = '/get_last_image'
 }
 
 down.addEventListener('click',() => 
