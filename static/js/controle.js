@@ -5,18 +5,13 @@ let right = document.getElementById('right')
 let stop = document.getElementById('stop')
 let img = document.getElementById('img')
 
-function atualiza_imagem() {
-    fetch('/get_last_image')
-    .then(resp => resp.blob())
-    .then(resp => {
-        URL.revokeObjectURL(img.src)
-        img.src = URL.createObjectURL(resp)
-    })
+function atualiza_imagem(resp) {
+    img.src = '/camera/'+resp    
 }
 
 down.addEventListener('click',() => 
     fetch('/down_side')
-    .then(() => atualiza_imagem())
+    .then(resp => atualiza_imagem(resp))
 )
 
 
