@@ -11,7 +11,7 @@ function atualiza_imagem(resp) {
 
 down.addEventListener('click',() => 
     fetch('/down_side')
-    .then(resp => atualiza_imagem(resp))
+    .then(resp =>  resp.text().then(atualiza_imagem(text)))
 )
 
 
