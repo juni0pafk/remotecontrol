@@ -7,7 +7,13 @@ let img = document.getElementById('img')
 
 function atualiza_imagem() {
     fetch('/get_last_image')
-    .then(resp => img.src = resp)
+    .then(resp => {
+        resp.arrayBuffer().then(buffer => {
+            let base64Flag = 'data:image/jpeg;base64,';
+            let imageStr = arrayBufferToBase64(buffer);
+            img.src = base64Flag + imageStr
+        })
+    })
 }
 
 down.addEventListener('click',() => 
