@@ -7,7 +7,7 @@ let img = document.getElementById('img')
 
 function atualiza_imagem() {
     window.URL.revokeObjectURL(img.src)
-    // img.src = '/get_last_image'
+    img.src = '/get_last_image'
 }
 
 down.addEventListener('click',() => 
