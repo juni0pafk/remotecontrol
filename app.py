@@ -151,7 +151,12 @@ def stop_route():
 @app.route('/get_last_image')
 def image_route():
    if len(last_filename):
-      return send_file(last_filename,mimetype='image/png')
+      #return send_file(last_filename,mimetype='image/png')
+      return last_filename
+
+@app.route('/camera/<path:path>')
+def send_image(path):
+    return send_from_directory('camera', path)
 
 @app.after_request
 def add_header(r):
