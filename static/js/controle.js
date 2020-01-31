@@ -10,8 +10,8 @@ function atualiza_imagem() {
     .then(resp => resp.blob())
     .then(resp => {
         URL.revokeObjectURL(img.src)
-        img.src = URL.createObjectURL(resp))
-    }
+        img.src = URL.createObjectURL(resp)
+    })
 }
 
 down.addEventListener('click',() => 
