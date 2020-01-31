@@ -146,7 +146,8 @@ def stop_route():
 @app.route('/get_last_image')
 def image_route():
    if len(last_filename):
-      return send_file(last_filename,mimetype='image/png')
+      # return send_file(last_filename,mimetype='image/png')
+      return url_for('camera',filename=last_filename)
 
 #NOT WORKING
 # TO DO: CRIAR UM TEMPLATE EM HTML+JS PARA LISTAR OS ARQUIVOS DA PASTA
