@@ -2,7 +2,7 @@
 #Adaptado: Andressa Theotônio
 
 from flask import Flask
-from flask import render_template, request, send_file
+from flask import render_template, request, send_file, send_from_directory
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
@@ -141,9 +141,9 @@ def image_route():
       return send_file(filename,mimetype='image/png')
    return ""
 
-@app.route('/<path:path>')
+@app.route('/camera/<path:path>')
 def static_proxy(path):
-  return app.send_static_file(path)
+  return send_from_directory('camera',path)
 
 
 #Hospedagem no ip da rasp
