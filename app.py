@@ -15,8 +15,9 @@ def handler(signal, frame):
   print('CTRL-C pressed!')
   cam.release()
   sys.exit(0)
+
 signal.signal(signal.SIGINT, handler)
-#signal.pause()
+
 
 app = Flask(__name__)
 
@@ -24,6 +25,7 @@ cam = cv2.VideoCapture(0)
 cam.set(3,320) #Largura da imagem capturada
 cam.set(4,240) #Altura da imagem capturada
 img_counter = 0
+last_filename = ""
 
 
 #Pinos do GPIO Rasp
@@ -80,7 +82,12 @@ def stop():
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 0)
 
-
+def take_picture():
+   global last_filename
+   ret,frame = cam.read()
+      if ret:
+         last_filename = 'camera/imagem_{}.png'.format(datetime.now())
+         cv2.imwrite(last_filename,frame)
 
 
 #Rota e função que renderiza o .html
@@ -92,6 +99,7 @@ def index():
 #Rota e função da esquerda
 @app.route('/left_side')
 def left_side():
+   take_picture()
    data1="LEFT"
    left()
    time.sleep(sleep)
@@ -101,6 +109,7 @@ def left_side():
 #Rota e função da direita
 @app.route('/right_side')
 def right_side():
+   take_picture()
    data1="RIGHT"
    right()
    time.sleep(sleep)
@@ -110,6 +119,7 @@ def right_side():
 #Rota e função da frente
 @app.route('/up_side')
 def up_side():
+   take_picture()
    data1="FORWARD"
    forward()
    time.sleep(sleep)
@@ -119,6 +129,7 @@ def up_side():
 #Rota e função de trás
 @app.route('/down_side')
 def down_side():
+   take_picture()
    data1="BACK"
    backward()
    time.sleep(sleep)
@@ -132,18 +143,16 @@ def stop_route():
    stop()
    return  'true'
 
-@app.route('/get_image')
+@app.route('/get_last_image')
 def image_route():
-   ret,frame = cam.read()
-   if ret:
-      filename = 'camera/imagem_{}.png'.format(datetime.now())
-      cv2.imwrite(filename,frame)
-      return send_file(filename,mimetype='image/png')
-   return ""
+   if len(last_filename):
+      return send_file(last_filename,mimetype='image/png')
 
-@app.route('/camera/<path:path>')
-def static_proxy(path):
-  return send_from_directory('camera',path)
+#NOT WORKING
+# TO DO: CRIAR UM TEMPLATE EM HTML+JS PARA LISTAR OS ARQUIVOS DA PASTA
+# @app.route('/camera/<path:path>') 
+# def static_proxy(path):
+#   return send_from_directory('camera',path)
 
 
 #Hospedagem no ip da rasp

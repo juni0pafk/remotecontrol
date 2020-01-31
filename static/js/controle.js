@@ -3,10 +3,35 @@ let up = document.getElementById('up')
 let left = document.getElementById('left')
 let right = document.getElementById('right')
 let stop = document.getElementById('stop')
+let img = document.getElementById('img')
 
-down.addEventListener('click',()=>fetch('/down_side'))
-up.addEventListener('click',()=>fetch('/up_side'))
-left.addEventListener('click',()=>fetch('/left_side'))
-right.addEventListener('click',()=>fetch('/right_side'))
+function atualiza_imagem() {
+    
+    fetch('/get_last_image')
+    .then(img => img.src = img)
+}
 
-stop.addEventListener('click',()=>fetch('/stop'))
+down.addEventListener('click',() => 
+    fetch('/down_side')
+    .then(atualiza_imagem())
+)
+
+
+up.addEventListener('click',() => 
+    fetch('/up_side')
+    .then(atualiza_imagem())
+)
+left.addEventListener('click',() => 
+    fetch('/left_side')
+    .then(atualiza_imagem())
+)
+
+right.addEventListener('click',() => 
+    fetch('/right_side')
+    .then(atualiza_imagem())
+)
+
+stop.addEventListener('click',() => 
+    fetch('/stop')
+    .then(atualiza_imagem())
+)
