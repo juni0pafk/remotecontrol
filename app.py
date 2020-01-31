@@ -139,7 +139,11 @@ def image_route():
       filename = 'camera/imagem_{}.png'.format(datetime.now())
       cv2.imwrite(filename,frame)
       return send_file(filename,mimetype='image/png')
-   return "nada"
+   return ""
+
+@app.route('/<path:path>')
+def static_proxy(path):
+  return app.send_static_file(path)
 
 
 #Hospedagem no ip da rasp
