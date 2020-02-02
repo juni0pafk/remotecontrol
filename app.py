@@ -28,6 +28,7 @@ CORS(app)
 
 
 #============GLOBALS=============
+cam = cv2.VideoCapture(0)
 data = []
 last_filename = ""
 data_filename = ""
