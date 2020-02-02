@@ -15,7 +15,7 @@ import signal
 
 def handler(signal, f):
   print('CTRL-C pressed!')
-  cam.release()
+#   cam.release()
   sys.exit(0)
 
 signal.signal(signal.SIGINT, handler)
@@ -27,12 +27,12 @@ CORS(app)
 
 
 #======= SETUP CAMERA=============
-cam = cv2.VideoCapture(0)
-cam.set(3,320) #Largura da imagem capturada
-cam.set(4,240) #Altura da imagem capturada
+# cam = cv2.VideoCapture(0)
+# cam.set(3,320) #Largura da imagem capturada
+# cam.set(4,240) #Altura da imagem capturada
 
-for i in range(0,20):
-    (grabbed, Frame) = camera.read()
+# for i in range(0,20):
+#     (grabbed, Frame) = camera.read()
 
 img_counter = 0
 last_filename = ""
@@ -46,9 +46,6 @@ m22=20
 
 sleep = .2
 
-
-##Declarações
-# GPIO.setmode(GPIO.BOARD)
 GPIO.setmode(GPIO.BCM) #RASPBERRY 3 MODEL B
 
 GPIO.setup(m11, GPIO.OUT)
@@ -88,11 +85,15 @@ def stop():
 
 def take_picture():
    global last_filename
+   cam = cv2.VideoCapture(0)
+   cam.set(3,320) #Largura da imagem capturada
+   cam.set(4,240) #Altura da imagem capturada
    (ret,frame) = cam.read()
    if ret:
       last_filename = 'imagem_{}'.format(datetime.now())
       last_filename = last_filename.replace(" ","_").replace(":","_").replace(".","_").replace("-","_") + '.png'
       cv2.imwrite('camera/' + last_filename,frame)
+   cam.release()
 
 
 #Rota e função que renderiza o .html
