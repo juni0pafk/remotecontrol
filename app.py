@@ -27,8 +27,7 @@ CORS(app)
 
 
 #======= SETUP CAMERA=============
-# cam = cv2.VideoCapture(0)
-cam = cv2.open(0)
+cam = cv2.VideoCapture(0)
 cam.set(3,320) #Largura da imagem capturada
 cam.set(4,240) #Altura da imagem capturada
 
@@ -89,12 +88,12 @@ def take_picture():
    # cam = cv2.VideoCapture(0)
    # cam.set(3,320) #Largura da imagem capturada
    # cam.set(4,240) #Altura da imagem capturada
+   cam.open(0)
    (ret,frame) = cam.read()
    if ret:
       last_filename = 'imagem_{}'.format(datetime.now())
       last_filename = last_filename.replace(" ","_").replace(":","_").replace(".","_").replace("-","_") + '.png'
       cv2.imwrite('camera/' + last_filename,frame)
-   cam.release()
 
 
 #Rota e função que renderiza o .html
