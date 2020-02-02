@@ -17,19 +17,19 @@ down.addEventListener('click',() =>
 
 up.addEventListener('click',() => 
     fetch('/up_side')
-    .then(() => atualiza_imagem())
+    .then(resp =>  resp.text().then(text => atualiza_imagem(text)))
 )
 left.addEventListener('click',() => 
     fetch('/left_side')
-    .then(() => atualiza_imagem())
+    .then(resp =>  resp.text().then(text => atualiza_imagem(text)))
 )
 
 right.addEventListener('click',() => 
     fetch('/right_side')
-    .then(() => atualiza_imagem())
+    .then(resp =>  resp.text().then(text => atualiza_imagem(text)))
 )
 
 stop.addEventListener('click',() => 
     fetch('/stop')
-    .then(() => atualiza_imagem())
+    .then(resp =>  resp.text().then(text => atualiza_imagem(text)))
 )
