@@ -3,7 +3,9 @@ let up = document.getElementById('up')
 let left = document.getElementById('left')
 let right = document.getElementById('right')
 let stop = document.getElementById('stop')
+let save = document.getElementById('save')
 let img = document.getElementById('img')
+let msg = document.getElementById('msg')
 
 function atualiza_imagem(resp) {
     img.src = '/camera/'+resp    
@@ -33,3 +35,11 @@ stop.addEventListener('click',() =>
     fetch('/stop')
     .then(resp =>  resp.text().then(text => atualiza_imagem(text)))
 )
+
+save.addEventListener('click', () => {
+    fetch('/save')
+    .then(resp => resp.text())
+    .then(text => {
+        msg.innerHTML = "Dados salvos no arquivo "+text
+    })
+})
