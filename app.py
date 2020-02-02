@@ -13,7 +13,7 @@ import time
 import sys
 import signal
 
-def handler(signal, frame):
+def handler(signal, f):
   print('CTRL-C pressed!')
   cam.release()
   sys.exit(0)
@@ -25,18 +25,18 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 CORS(app)
 
+
+#======= SETUP CAMERA=============
 cam = cv2.VideoCapture(0)
 cam.set(3,320) #Largura da imagem capturada
 cam.set(4,240) #Altura da imagem capturada
+
+for i in range(0,20):
+    (grabbed, Frame) = camera.read()
+
 img_counter = 0
 last_filename = ""
-
-
-#Pinos do GPIO Rasp
-# m11=12   
-# m12=16
-# m21=18
-# m22=22
+#=================================
 
 #Pinos do GPIO Raspberry 3 model B 
 m11=26   
@@ -88,7 +88,7 @@ def stop():
 
 def take_picture():
    global last_filename
-   ret,frame = cam.read()
+   (ret,frame) = cam.read()
    if ret:
       last_filename = 'imagem_{}'.format(datetime.now())
       last_filename = last_filename.replace(" ","_").replace(":","_").replace(".","_").replace("-","_") + '.png'
