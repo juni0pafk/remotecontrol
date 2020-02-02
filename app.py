@@ -32,7 +32,7 @@ cam.set(3,320) #Largura da imagem capturada
 cam.set(4,240) #Altura da imagem capturada
 
 for i in range(0,20):
-    (grabbed, Frame) = camera.read()
+    (grabbed, Frame) = cam.read()
 
 img_counter = 0
 last_filename = ""
