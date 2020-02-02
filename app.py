@@ -15,6 +15,13 @@ import signal
 
 import pickle
 
+def handler(signal, f):
+  print('CTRL-C pressed!')
+  cam.release()
+  sys.exit(0)
+
+signal.signal(signal.SIGINT, handler)
+
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 CORS(app)
@@ -159,12 +166,7 @@ def save_route():
 def download_route():
    return send_from_directory('data',data_filename)
 
-def handler(signal, f):
-  print('CTRL-C pressed!')
-  cam.release()
-  sys.exit(0)
 
-signal.signal(signal.SIGINT, handler)
 
 #NOT WORKING
 # TO DO: CRIAR UM TEMPLATE EM HTML+JS PARA LISTAR OS ARQUIVOS DA PASTA
