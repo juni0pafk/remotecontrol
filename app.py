@@ -29,8 +29,8 @@ CORS(app)
 #======= SETUP CAMERA=============
 # cam = cv2.VideoCapture(0)
 cam = cv2.open(0)
-# cam.set(3,320) #Largura da imagem capturada
-# cam.set(4,240) #Altura da imagem capturada
+cam.set(3,320) #Largura da imagem capturada
+cam.set(4,240) #Altura da imagem capturada
 
 # for i in range(0,20):
 #     (grabbed, Frame) = camera.read()
