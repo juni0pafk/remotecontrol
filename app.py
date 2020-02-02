@@ -28,6 +28,7 @@ CORS(app)
 
 #======= SETUP CAMERA=============
 # cam = cv2.VideoCapture(0)
+cam = cv2.open(0)
 # cam.set(3,320) #Largura da imagem capturada
 # cam.set(4,240) #Altura da imagem capturada
 
@@ -85,9 +86,9 @@ def stop():
 
 def take_picture():
    global last_filename
-   cam = cv2.VideoCapture(0)
-   cam.set(3,320) #Largura da imagem capturada
-   cam.set(4,240) #Altura da imagem capturada
+   # cam = cv2.VideoCapture(0)
+   # cam.set(3,320) #Largura da imagem capturada
+   # cam.set(4,240) #Altura da imagem capturada
    (ret,frame) = cam.read()
    if ret:
       last_filename = 'imagem_{}'.format(datetime.now())
