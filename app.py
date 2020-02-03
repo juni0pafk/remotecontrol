@@ -165,7 +165,7 @@ def save_route():
 
 @app.route('/download')
 def download_route():
-   return send_from_directory('data',data_filename)
+   return send_from_directory('data',data_filename, as_attachment=True)
 
 
 
