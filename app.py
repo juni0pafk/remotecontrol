@@ -33,8 +33,8 @@ data = []
 last_filename = ""
 data_filename = ""
 sleep = .2
-largura_img = 640
-altura_img = 480
+largura_img = 720
+altura_img = 240
 actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
 #=================================
 
