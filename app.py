@@ -33,6 +33,8 @@ data = []
 last_filename = ""
 data_filename = ""
 sleep = .2
+largura_img = 640
+altura_img = 480
 actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
 #=================================
 
@@ -82,8 +84,8 @@ def stop():
 def take_picture(action):
    global last_filename,dados
    cam.open(0)
-   cam.set(3,320) #Largura da imagem capturada
-   cam.set(4,240) #Altura da imagem capturada
+   cam.set(3,largura_img) #Largura da imagem capturada
+   cam.set(4,altura_img) #Altura da imagem capturada
    (ret,frame) = cam.read()
    if ret:
       last_filename = 'imagem_' + get_timestamp() + '.png'
