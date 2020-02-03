@@ -108,7 +108,7 @@ def index():
 def left_side():
    take_picture(actions[0])
    left()
-   time.sleep(sleep)
+   time.sleep(sleep / 2)
    stop()
    return last_filename
 
@@ -117,7 +117,7 @@ def left_side():
 def right_side():
    take_picture(actions[1])
    right()
-   time.sleep(sleep)
+   time.sleep(sleep / 2)
    stop()
    return last_filename
 
