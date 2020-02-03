@@ -158,7 +158,7 @@ def save_route():
    global data_filename, data
    if len(data):
       data_filename = 'dados_{}_{}_imagens'.format(get_timestamp(),len(data))
-      file = open('data/'+data_filename,'w')
+      file = open('data/'+data_filename,'wb')
       pickle.dump(data,file)
       file.close()
       return data_filename
