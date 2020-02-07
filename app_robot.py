@@ -14,6 +14,8 @@ import sys
 import signal
 
 import pickle
+import json
+import requests
 
 def handler(signal, f):
   print('CTRL-C pressed!')
@@ -35,7 +37,11 @@ data_filename = ""
 sleep = .250
 largura_img = 720
 altura_img = 240
-actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
+actions = ['LEFT','FORWARD','RIGHT','BACKWARD']
+autonomous_mode = False
+
+MODEL_URL = '192.168.1.185:5050/get_direction'
+
 #=================================
 
 #Pinos do GPIO Raspberry 3 model B 
@@ -51,29 +57,38 @@ GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
 GPIO.setup(m22, GPIO.OUT)
 
-def left():
+def left(t):
    GPIO.output(m11 , 1)
    GPIO.output(m12 , 0)
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 0)
+   time.sleep(t)
+   stop()
 
-def right():
+
+def right(t):
    GPIO.output(m11 , 0)
    GPIO.output(m12 , 0)
    GPIO.output(m21 , 1)
    GPIO.output(m22 , 0)
+   time.sleep(t)
+   stop()
 
-def forward():
+def forward(t):
    GPIO.output(m11 , 1)
    GPIO.output(m12 , 0)
    GPIO.output(m21 , 1)
    GPIO.output(m22 , 0)
+   time.sleep(t)
+   stop()
 
-def backward():
+def backward(t):
    GPIO.output(m11 , 0)
    GPIO.output(m12 , 1)
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 1)
+   time.sleep(t)
+   stop()
 
 def stop():
    GPIO.output(m11 , 0)
@@ -81,12 +96,16 @@ def stop():
    GPIO.output(m21 , 0)
    GPIO.output(m22 , 0)
 
-def take_picture(action):
-   global last_filename,dados
+def take_picture():
    cam.open(0)
    cam.set(3,largura_img) #Largura da imagem capturada
    cam.set(4,altura_img) #Altura da imagem capturada
-   (ret,frame) = cam.read()
+   return cam.read()
+
+
+def save_picture(action):
+   global last_filename,dados
+   (ret,frame) = take_picture()
    if ret:
       last_filename = 'imagem_' + get_timestamp() + '.png'
       cv2.imwrite('camera/' + last_filename,frame)
@@ -106,38 +125,43 @@ def index():
 #Rota e função da esquerda
 @app.route('/left_side')
 def left_side():
-   take_picture(actions[0])
-   left()
-   time.sleep(sleep / 2)
-   stop()
-   return last_filename
+   if not autonomous_mode:
+      save_picture(actions[0])
+      left(sleep/2)
+      return last_filename
+   else:
+      left(sleep/2)
+
 
 #Rota e função da direita
 @app.route('/right_side')
 def right_side():
-   take_picture(actions[1])
-   right()
-   time.sleep(sleep / 2)
-   stop()
-   return last_filename
+   if not autonomous_mode:
+      save_picture(actions[1])
+      right(sleep/2)
+      return last_filename
+   else:
+      right(sleep/2)
 
 #Rota e função da frente
 @app.route('/up_side')
 def up_side():
-   take_picture(actions[2])
-   forward()
-   time.sleep(sleep)
-   stop()
-   return last_filename
+   if not autonomous_mode:
+      save_picture(actions[2])
+      forward(sleep)
+      return last_filename
+   else:
+      forward(sleep)
 
 #Rota e função de trás
 @app.route('/down_side')
 def down_side():
-   take_picture(actions[3])
-   backward()
-   time.sleep(sleep)
-   stop()
-   return last_filename
+   if not autonomous_mode:
+      take_picture(actions[3])
+      backward(sleep)
+      return last_filename
+   else:
+      backward(sleep)
 
 #Rota e função de parada
 @app.route('/stop')
@@ -168,6 +192,24 @@ def save_route():
 @app.route('/download')
 def download_route():
    return send_from_directory('data',data_filename, as_attachment=True)
+
+@app.route('/autonomous_mode')
+def autonomous():
+   global autonomous_mode
+   autonomous_mode = True
+   while(autonomous_mode):
+      (ret,frame) = take_picture()
+      if ret :
+         data = {'frame':frame.tolist()}
+         response = requests.post(MODEL_URL,json=data)
+         sleep(.5)
+
+@app.route('/stop_autonomous')
+def stop_autonomous():
+   global autonomous_mode
+   autonomous_mode = False
+
+
 
 
 

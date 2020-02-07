@@ -6,6 +6,8 @@ let stop = document.getElementById('stop')
 let save = document.getElementById('save')
 let img = document.getElementById('img')
 let msg = document.getElementById('msg')
+let auto = document.getElementById('auto')
+let manual = document.getElementById('manual')
 
 function atualiza_imagem(resp) {
     img.src = '/camera/'+resp    
@@ -41,5 +43,23 @@ save.addEventListener('click', () => {
     .then(resp => resp.text())
     .then(text => {
         msg.innerHTML = "Dados salvos no arquivo "+text
+    })
+})
+
+auto.addEventListener('click', () => {
+    fetch('/autonomous_mode')
+    .then(resp => {
+        if(resp.ok){
+            msg.innerHTML = "Modo autônomo iniciado!"
+        }
+    })
+})
+
+manual.addEventListener('click',()=>{
+    fetch('/stop_autonomous')
+    .then(resp => {
+        if(resp.ok){
+            msg.innerHTML = "Modo autônome desligado!"
+        }
     })
 })
