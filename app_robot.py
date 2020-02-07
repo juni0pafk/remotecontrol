@@ -40,7 +40,7 @@ altura_img = 240
 actions = ['LEFT','FORWARD','RIGHT','BACKWARD']
 autonomous_mode = False
 
-MODEL_URL = '192.168.1.185:5050/get_direction'
+MODEL_URL = 'http://192.168.1.185:5010/get_direction'
 
 #=================================
 
