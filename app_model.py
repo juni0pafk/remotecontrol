@@ -15,9 +15,15 @@ model = tf.keras.models.load_model('models/model_esquerda.h5')
 @app.route('/get_direction', methods=['POST'])
 def get_direction():
     data = request.json
-    frame = np.array(data['frame'])
+
+    frame = np.array(data['frame'],dtype=np.uint8)
+    print(frame.shape)
+    frame = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
     frame = frame[tf.newaxis,...,tf.newaxis] / 255.0
-    direction = np.argmax(model.predict(frame))
+    
+    direction = model.predict(frame)
+    print(direction)
+    direction = np.argmax(direction)
     if direction == 0:
         requests.get(ROBOT_URL + '/left_side')
     elif direction == 1:
