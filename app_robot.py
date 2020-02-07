@@ -202,7 +202,7 @@ def autonomous():
       if ret :
          data = {'frame':frame.tolist()}
          response = requests.post(MODEL_URL,json=data)
-         time.sleep(.5)
+      time.sleep(.5)
 
 @app.route('/stop_autonomous')
 def stop_autonomous():

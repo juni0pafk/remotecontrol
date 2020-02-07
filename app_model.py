@@ -9,7 +9,7 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-ROBOT_URL = '192.168.1.197:5010'
+ROBOT_URL = 'http://192.168.1.197:5010'
 model = tf.keras.models.load_model('models/model_esquerda.h5')
 
 @app.route('/get_direction', methods=['POST'])
@@ -28,6 +28,8 @@ def get_direction():
         requests.get(ROBOT_URL + '/left_side')
     elif direction == 1:
         requests.get(ROBOT_URL + '/up_side')
+    
+    return direction
 
 
 if __name__ == "__main__":
