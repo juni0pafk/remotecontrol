@@ -29,7 +29,7 @@ def get_direction():
     elif direction == 1:
         requests.get(ROBOT_URL + '/up_side')
     
-    return direction
+    return 'OK'
 
 
 if __name__ == "__main__":

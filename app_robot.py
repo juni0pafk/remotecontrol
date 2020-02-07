@@ -131,6 +131,7 @@ def left_side():
       return last_filename
    else:
       left(sleep/2)
+      return 'OK'
 
 
 #Rota e função da direita
@@ -142,6 +143,7 @@ def right_side():
       return last_filename
    else:
       right(sleep/2)
+      return 'OK'
 
 #Rota e função da frente
 @app.route('/up_side')
@@ -152,6 +154,7 @@ def up_side():
       return last_filename
    else:
       forward(sleep)
+      return 'OK'
 
 #Rota e função de trás
 @app.route('/down_side')
@@ -162,6 +165,7 @@ def down_side():
       return last_filename
    else:
       backward(sleep)
+      return 'OK'
 
 #Rota e função de parada
 @app.route('/stop')
