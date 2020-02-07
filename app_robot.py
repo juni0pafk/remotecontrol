@@ -207,13 +207,13 @@ def autonomous():
          data = {'frame':frame.tolist()}
          response = requests.post(MODEL_URL,json=data)
       time.sleep(.5)
-   return True
+   return 'OK'
 
 @app.route('/stop_autonomous')
 def stop_autonomous():
    global autonomous_mode
    autonomous_mode = False
-   return True
+   return 'OK'
 
 
 
