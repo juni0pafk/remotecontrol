@@ -37,7 +37,7 @@ data_filename = ""
 sleep = .250
 largura_img = 720
 altura_img = 240
-actions = ['LEFT','FORWARD','RIGHT','BACKWARD']
+actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
 autonomous_mode = False
 
 MODEL_URL = 'http://192.168.1.185:5010/get_direction'
