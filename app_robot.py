@@ -35,8 +35,8 @@ data = []
 last_filename = ""
 data_filename = ""
 sleep = .250
-largura_img = 720
-altura_img = 240
+largura_img = 200
+altura_img = 66
 actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
 autonomous_mode = False
 
