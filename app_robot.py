@@ -30,13 +30,15 @@ CORS(app)
 
 
 #============GLOBALS=============
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(-1)
+#cam.release()
+#cam = cv2.VideoCapture(0)
 data = []
 last_filename = ""
 data_filename = ""
 sleep = .250
-largura_img = 200
-altura_img = 66
+largura_img = 160
+altura_img = 120
 actions = ['LEFT','RIGHT','FORWARD','BACKWARD']
 autonomous_mode = False
 
@@ -98,8 +100,8 @@ def stop():
 
 def take_picture():
    cam.open(0)
-   cam.set(3,largura_img) #Largura da imagem capturada
-   cam.set(4,altura_img) #Altura da imagem capturada
+#   cam.set(3,largura_img) #Largura da imagem capturada
+#   cam.set(4,altura_img) #Altura da imagem capturada
    return cam.read()
 
 
