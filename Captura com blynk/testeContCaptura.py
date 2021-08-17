@@ -1,3 +1,5 @@
+#VERSÃO QUE O PULSO É ENVIADO PARA O SERVO MOTOR APENAS QUANDO HOUVER MUDANÇA DE AÇÃO (jitter foi corrigido, mas algumas vezes há diferença no posicionamento do servo, o que só é corrigido quando há mudança de ação)
+
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
