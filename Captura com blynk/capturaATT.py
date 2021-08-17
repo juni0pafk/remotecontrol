@@ -1,3 +1,5 @@
+#VERSÃO QUE O PULSO É ENVIADO PARA O SERVO MOTOR A CADA AÇÃO, INDEPENDENTE SE FOI A MESMA ANTERIORMENTE (causando um certo jitter)
+
 from datetime import datetime
 import RPi.GPIO as GPIO
 import cv2
